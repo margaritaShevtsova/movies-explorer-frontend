@@ -1,0 +1,158 @@
+.about-me {
+  padding: 110px 70px 101px;
+}
+
+.about-me__title {
+  margin: 0;
+  margin-bottom: 66px;
+  padding: 0;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #dadada;
+  color: #fff;
+  font-family: Inter;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.88px;
+}
+
+.about-me__content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.about-me__block {
+  max-width: 600px;
+}
+
+.about-me__subtitle {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 18px;
+  color: #fff;
+  font-family: Inter;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 116%;
+  letter-spacing: -2px;
+}
+
+.about-me__caption {
+  display: block;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 26px;
+  color: #fff;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.about-me__descr {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 99px;
+  color: #fff;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.about-me__link {
+  text-decoration: none;
+  color: #fff;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.about-me__link:hover {
+  opacity: 0.7;
+}
+
+.about-me__image {
+  width: 270px;
+}
+
+@media screen and (max-width: 889px) {
+  .about-me {
+    padding: 86px 50px 89px;
+  }
+
+  .about-me__subtitle {
+    font-size: 40px;
+    line-height: 100%;
+  }
+
+  .about-me__caption {
+    margin-bottom: 19px;
+    font-size: 12px;
+    line-height: 150%;
+  }
+
+  .about-me__descr {
+    margin-bottom: 86px;
+    font-size: 12px;
+    line-height: 150%;
+  }
+
+  .about-me__block {
+    margin-right: 35px;
+  }
+
+  .about-me__image {
+    width: 255px;
+  }
+}
+
+@media screen and (max-width: 684px) {
+  .about-me {
+    padding: 57px 14px 70px;
+  }
+
+  .about-me__title {
+    margin-bottom: 60px;
+    padding-bottom: 28px;
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+
+  .about-me__content {
+    flex-direction: column-reverse;
+  }
+
+  .about-me__image {
+    width: 292px;
+    margin-bottom: 40px;
+  }
+
+  .about-me__subtitle {
+    margin-bottom: 25px;
+    font-size: 30px;
+    letter-spacing: -1.2px;
+  }
+
+  .about-me__caption {
+    font-size: 11px;
+    line-height: 145%;
+  }
+
+  .about-me__block {
+    margin-right: 0;
+  }
+
+  .about-me__descr {
+    margin-bottom: 40px;
+    font-size: 11px;
+    line-height: 145%;
+  }
+}

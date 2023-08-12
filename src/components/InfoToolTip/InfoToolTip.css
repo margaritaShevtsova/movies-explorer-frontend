@@ -1,0 +1,86 @@
+.tooltip {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.tooltip_opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip__container {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 36px;
+  text-align: center;
+  width: 430px;
+  background-color: #2f2f2f;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+.tooltip__image {
+  margin-bottom: 32px;
+}
+
+.tooltip__descr {
+  padding: 0;
+  margin: 0;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.tooltip__close-btn {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  border: none;
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  background-image: url("../../images/close-btn.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 32px 32px;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 765px) {
+  .tooltip__container {
+    padding: 25px 22px;
+    max-width: 282px;
+  }
+
+  .tooltip__close-btn {
+    right: 0;
+    top: -36px;
+    width: 20px;
+    height: 20px;
+    background-size: 20px 20px;
+  }
+}
+
+.tooltip__close-btn:hover {
+    opacity: 0.6;
+}

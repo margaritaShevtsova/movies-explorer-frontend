@@ -1,0 +1,177 @@
+.register {
+  padding: 70px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register__logo {
+  width: 38px;
+  height: 38px;
+}
+
+.register__logo-link {
+  display: block;
+  margin-bottom: 36px;
+}
+
+.register__title {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 40px;
+  color: #fff;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.register__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.register__label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  color: #8b8b8b;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.register__label:last-of-type {
+  margin-bottom: 169px;
+}
+
+.register__input {
+  box-sizing: border-box;
+  margin-top: 10px;
+  padding: 15px;
+  border: none;
+  width: 396px;
+  color: #fff;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-radius: 8px;
+  background-color: #2f2f2f;
+}
+
+.register__input_error {
+  color: #ee3465;
+  margin-bottom: 10px;
+}
+
+.register__error {
+  color: #ee3465;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.register__btn {
+  margin-bottom: 16px;
+  padding: 14px;
+  border: none;
+  border-radius: 3px;
+  background-color: #4285f4;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-align: center;
+  cursor: pointer;
+}
+
+.register__btn:hover {
+  opacity: 0.8;
+}
+
+.register__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register__caption {
+  margin-right: 6px;
+  color: #8b8b8b;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.register__link {
+  color: #4285f4;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.register__link:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 889px) {
+  .register {
+    padding: 232px 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .register {
+    padding: 56px 0 30px;
+  }
+
+  .register__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .register__logo-link {
+    margin-bottom: 45px;
+  }
+
+  .register__title {
+    margin-bottom: 81px;
+  }
+
+  .register__input {
+    width: 260px;
+  }
+
+  .register__label:last-of-type {
+    margin-bottom: 157px;
+  }
+
+  .register__btn {
+    font-size: 12px;
+  }
+
+  .register__caption {
+    font-size: 12px;
+  }
+
+  .register__link {
+    font-size: 12px;
+  }
+}
