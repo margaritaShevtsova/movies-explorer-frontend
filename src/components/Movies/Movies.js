@@ -12,8 +12,14 @@ function Movies({ isLoggedin }) {
   return (
     <>
       <Header isLoggedin={isLoggedin} />
-      <SearchForm />
-      {isLoading ? <Preloader /> : <MoviesCardList cardsSettings="allCards" />}
+      <main>
+        <SearchForm />
+        {isLoading ? (
+          <Preloader />
+        ) : (
+          <MoviesCardList cardsSettings="allCards" />
+        )}
+      </main>
       <Footer />
     </>
   );

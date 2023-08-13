@@ -20,6 +20,9 @@ function SearchForm() {
               name="search"
               type="text"
               placeholder="Фильм"
+              required
+              maxLength="60"
+              minLength="2"
             />
             <button className="search__btn"></button>
           </div>

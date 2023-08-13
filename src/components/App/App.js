@@ -19,9 +19,8 @@ function App() {
     setIsSuccess(false);
   };
 
-
   return (
-    <div className="App">
+    <div className="page">
       <Routes>
         <Route path="/" element={<Main isLoggedin={false} />} />
         <Route path="/movies" element={<Movies isLoggedin={true} />} />
@@ -39,15 +38,15 @@ function App() {
             />
           }
         />
-        <Route path="/signup" element={<Register/>} />
-        <Route path="/signin" element={<Login/>} />
+        <Route path="/signup" element={<Register />} />
+        <Route path="/signin" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <InfoTooltip
-            onClose={closeAllPopups}
-            isOpen={isTooltipOpen}
-            isSuccess={isSuccess}
-          />
+        onClose={closeAllPopups}
+        isOpen={isTooltipOpen}
+        isSuccess={isSuccess}
+      />
     </div>
   );
 }

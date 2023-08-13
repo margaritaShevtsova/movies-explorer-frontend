@@ -5,13 +5,15 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 import SearchForm from "../SearchForm/SearchForm";
 
-function SavedMovies({isLoggedin}) {
+function SavedMovies({ isLoggedin }) {
   return (
     <>
-    <Header isLoggedin={isLoggedin}/>
-    <SearchForm/>
-    <MoviesCardList cardsSettings="savedCards"/>
-    <Footer/>
+      <Header isLoggedin={isLoggedin} />
+      <main>
+        <SearchForm />
+        <MoviesCardList cardsSettings="savedCards" />
+      </main>
+      <Footer />
     </>
   );
 }

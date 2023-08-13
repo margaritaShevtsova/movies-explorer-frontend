@@ -64,7 +64,7 @@
   flex-basis: 80%;
 }
 
-.project__block_left {
+.project__block-left {
   display: block;
   margin-bottom: 14px;
   padding: 9px 14px;
@@ -79,7 +79,7 @@
   text-align: center;
 }
 
-.project__block_right {
+.project__block-right {
   display: block;
   margin-bottom: 14px;
   padding: 9px 14px;

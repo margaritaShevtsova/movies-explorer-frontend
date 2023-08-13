@@ -71,10 +71,11 @@
 }
 
 .card__save-btn:hover {
+  display: block;
   opacity: 0.7;
 }
 
-.card__link:hover .card__save-btn {
+.card__link:hover + .card__save-btn {
   display: block;
 }
 
@@ -96,6 +97,7 @@
 }
 
 .card__save-btn_active:hover {
+  display: block;
   opacity: 0.7;
 }
 

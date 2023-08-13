@@ -39,7 +39,7 @@
   visibility: hidden;
 }
 
-@media screen and (max-width: 1166px) {
+@media screen and (max-width: 1300px) {
   .cards__list {
     grid-template-columns: repeat(2, 339px);
     gap: 39px 30px;
@@ -53,7 +53,7 @@
   }
 }
 
-@media screen and (max-width: 684px) {
+@media screen and (max-width: 767px) {
   .cards {
     padding: 50px 10px 102px;
   }

@@ -11,11 +11,13 @@ function Main({isLoggedin}) {
   return (
     <>
       <Header isLoggedin={isLoggedin}/>
+      <main>
       <Promo/>
       <AboutProject/>
       <Techs/>
       <AboutMe/>
       <Portfolio/>
+      </main>
       <Footer/>
     </>
   );

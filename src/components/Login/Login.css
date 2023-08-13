@@ -153,6 +153,7 @@
 
   .login__title {
     margin-bottom: 81px;
+    text-align: center;
   }
 
   .login__input {

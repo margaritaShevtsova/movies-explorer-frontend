@@ -3,9 +3,9 @@ import "./FilterCheckbox.css";
 
 function FilterCheckbox(onHandleChange) {
   return (
-    <div className="checkbox__wrapper">
+    <div className="checkbox">
       <input
-        className="checkbox"
+        className="checkbox__input"
         id="check"
         type="checkbox"
         defaultChecked={true}
