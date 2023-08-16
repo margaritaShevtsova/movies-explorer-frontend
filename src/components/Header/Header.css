@@ -1,0 +1,168 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 70px;
+}
+
+.header__logo {
+  width: 38px;
+  height: 38px;
+}
+
+.header__link {
+  font-family: Inter;
+  font-style: normal;
+  text-decoration: none;
+}
+
+.header__wrapper {
+  padding-left: 60px;
+}
+
+.header__link_type_register {
+  margin-right: 30px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 133%;
+  color: #fff;
+}
+
+.header__link_type_register:hover {
+  opacity: 0.7;
+}
+
+.header__link_type_signin {
+  padding: 8px 20px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 133%;
+  color: #000;
+  background-color: #3ddc84;
+  border-radius: 3px;
+}
+
+.header__link_type_signin:hover {
+  opacity: 0.7;
+}
+
+.header__link_type_movies {
+  margin-right: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 138.4%;
+  color: #fff;
+}
+
+.header__link_type_movies:hover {
+  opacity: 0.7;
+}
+
+.header__link_type_saved-movies {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 138.4%;
+  color: #fff;
+}
+
+.header__link_type_saved-movies:hover {
+  opacity: 0.7;
+}
+
+.header__link_type_profile {
+  padding: 8px 21px;
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 114.2%;
+  border-radius: 20px;
+  background-color: #313131;
+}
+
+.header__link_type_profile:hover {
+  opacity: 0.7;
+}
+
+.burger {
+  display: none;
+}
+
+.burger:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 889px) {
+  .header {
+    padding: 18px 30px;
+  }
+
+  .burger {
+    position: relative;
+    display: block;
+    width: 44px;
+    height: 39px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .burger-line {
+    position: absolute;
+    left: 50%;
+    width: 27px;
+    height: 2px;
+    border-radius: inherit;
+    background-color: #fff;
+    transform: translateX(-50%);
+  }
+
+  .burger-line:first-child {
+    top: 8px;
+  }
+
+  .burger-line:nth-child(3) {
+    bottom: 8px;
+  }
+
+  .burger-line:nth-child(2) {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .header__wrapper {
+    display: none;
+  }
+
+  .header__link_type_profile {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 684px) {
+  .header {
+    padding: 18px 14px;
+  }
+
+  .header__link-register {
+    margin-right: 14px;
+    font-size: 10px;
+    line-height: 160%;
+  }
+
+  .header__link-signin {
+    padding: 7px 12px;
+    font-size: 11px;
+    line-height: 186%;
+  }
+
+  .burger {
+    width: 40px;
+    height: 35px;
+  }
+
+  .burger-line {
+    width: 21px;
+  }
+}

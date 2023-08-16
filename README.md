@@ -1,1 +1,2 @@
-# movies-explorer-frontend
+# Сверстано по макету
+dark-2
