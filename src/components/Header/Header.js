@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Navigation from "../Navigation/Navigation";
 
-function Header({ isLoggedin }) {
+function Header({ isLoggedIn }) {
   const [isNav, setIsNav] = useState(false);
   function handleBurgerClick() {
     setIsNav(true);
@@ -20,7 +20,7 @@ function Header({ isLoggedin }) {
       <Link to="/">
         <img src={logo} className="header__logo" alt="Логотип сайта"></img>
       </Link>
-      {isLoggedin ? (
+      {isLoggedIn ? (
         <>
           <div className="header__wrapper">
             <Link

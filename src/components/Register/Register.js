@@ -1,29 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Register.css";
 import logo from "../../images/logo_main-1.svg";
+import { useFormWithValidation } from "../../hooks/useForm";
 
-function Register() {
-  const [formValue, setFormValue] = useState({
-    name: "Виталий",
-    email: "pochta@yandex.ru",
-    password: "",
-  });
+function Register({handleRegister}) {
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const {
+    values,
+    handleChange,
+    errors,
+    isValid,
+    resetForm,
+  } = useFormWithValidation();
 
-    setFormValue({
-      ...formValue,
-      [name]: value,
-    });
-  };
+  function handleSubmit(e) {
+    e.preventDefault();
+    handleRegister(values.password, values.email, values.name);
+    setIsSubmitted(true);
+  }
 
   return (
     <div className="register">
       <div className="register__container">
         <header>
-          <Link to="/" className="register__logo-link">
+          <Link to="/" className="register__logo-link" replace>
             <img
               src={logo}
               className="register__logo"
@@ -33,7 +35,10 @@ function Register() {
         </header>
         <main>
           <h2 className="register__title">Добро пожаловать!</h2>
-          <form className="register__form">
+          <form
+            className="register__form"
+            onSubmit={handleSubmit}
+          >
             <label className="register__label">
               Имя
               <input
@@ -44,10 +49,12 @@ function Register() {
                 placeholder="Имя"
                 minLength="2"
                 maxLength="40"
-                value={formValue.name || ""}
+                value={values.name || ""}
                 onChange={handleChange}
               />
-              <span className="register__error"></span>
+              <span className={errors.name && "register__error"}>
+                {errors.name || ""}
+              </span>
             </label>
             <label className="register__label">
               E-mail
@@ -59,32 +66,45 @@ function Register() {
                 placeholder="E-mail"
                 minLength="2"
                 maxLength="40"
-                value={formValue.email || ""}
+                value={values.email || ""}
                 onChange={handleChange}
               />
-              <span className="register__error"></span>
+              <span className={errors.email && "register__error"}>
+                {errors.email || ""}
+              </span>
             </label>
             <label className="register__label">
               Пароль
               <input
-                className="register__input register__input_error"
+                className="register__input"
                 name="password"
                 type="password"
                 required
                 placeholder="Пароль"
                 minLength="2"
                 maxLength="40"
-                value={formValue.password || ""}
+                value={values.password || ""}
                 onChange={handleChange}
               />
-              <span className="register__error">Что-то пошло не так...</span>
+              <span className={errors.password && "register__error"}>
+                {errors.password || ""}
+              </span>
             </label>
-            <button className="register__btn">Зарегистрироваться</button>
+            <span className="input__error">
+              {!isValid && isSubmitted ? "Что-то пошло не так" : ""}
+            </span>
+            <button
+              className="register__btn"
+              type="submit"
+              disabled={!isValid}
+            >
+              Зарегистрироваться
+            </button>
           </form>
         </main>
         <footer className="register__wrapper">
           <span className="register__caption">Уже зарегистрированы? </span>
-          <Link className="register__link" to="/signin">
+          <Link className="register__link" to="/signin" replace>
             Войти
           </Link>
         </footer>
