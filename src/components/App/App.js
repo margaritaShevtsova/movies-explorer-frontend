@@ -44,8 +44,7 @@ function App() {
     return auth
       .register(password, email, name)
       .then(() => {
-        setIsLoggedIn(true);
-        navigate("/movies", { replace: true });
+        navigate("/signin", { replace: true });
         getUserContent();
         setIsSuccess(true);
         setIsTooltipOpen(true);
