@@ -20,7 +20,7 @@ class Api {
 
   getUserInfo() {
     return fetch(this._adress + "/users/me", {
-      // credentials: 'include',
+      credentials: 'include',
     }).then((res) => {
       return this._checkResponseStatus(res);
     });
