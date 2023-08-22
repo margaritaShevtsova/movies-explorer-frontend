@@ -1,7 +1,7 @@
 {
   "main.css": "/static/css/main.03baa2ac.chunk.css",
-  "main.js": "/static/js/main.8600b8be.chunk.js",
-  "main.js.map": "/static/js/main.8600b8be.chunk.js.map",
+  "main.js": "/static/js/main.800d1b4c.chunk.js",
+  "main.js.map": "/static/js/main.800d1b4c.chunk.js.map",
   "static/js/1.67a8a2d6.chunk.js": "/static/js/1.67a8a2d6.chunk.js",
   "static/js/1.67a8a2d6.chunk.js.map": "/static/js/1.67a8a2d6.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
@@ -11,12 +11,12 @@
   "static/media/student.png": "/static/media/student.1ec56c8d.png",
   "static/media/Success.svg": "/static/media/Success.e38b395c.svg",
   "static/media/Fale.svg": "/static/media/Fale.4072126c.svg",
-  "static/media/index.css": "/static/media/Inter-Medium.c0638bea.woff",
+  "static/media/index.css": "/static/media/Inter-Black.d0b121f3.woff",
   "static/media/InfoToolTip.css": "/static/media/close-btn.66af4974.svg",
   "static/media/SearchForm.css": "/static/media/button.3166ed04.svg",
   "static/media/MoviesCard.css": "/static/media/save-btn.d055a67b.svg",
   "static/css/main.03baa2ac.chunk.css.map": "/static/css/main.03baa2ac.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.dc4c6ebd5f024bdc4c42a72c524e40ad.js": "/precache-manifest.dc4c6ebd5f024bdc4c42a72c524e40ad.js",
+  "precache-manifest.90c8e20cf8c1371d7a4dc435f5e10ef4.js": "/precache-manifest.90c8e20cf8c1371d7a4dc435f5e10ef4.js",
   "service-worker.js": "/service-worker.js"
 }
