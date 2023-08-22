@@ -9,8 +9,8 @@ function MoviesCard({
   handleDeleteMovie,
   isSavedCards,
 }) {
-  const savedMovies = React.useContext(SavedMoviesContext);
   const [isSaved, setIsSaved] = useState(false);
+  const savedMovies = React.useContext(SavedMoviesContext);
 
   function makeDurationFormat(duration) {
     const hours = Math.floor(duration / 60);

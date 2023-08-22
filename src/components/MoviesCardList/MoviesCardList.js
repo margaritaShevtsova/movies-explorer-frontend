@@ -55,7 +55,7 @@ function MoviesCardList({ cards, cardsSettings, isSubmitted, handleAddMovie, han
       <ul className="cards__list">
         {(cards.length === 0 && isSubmitted) ? (<span className="cards__statement">Ничего не найдено</span>) 
         : cards.length > 0 && cards.slice(0, roundedVisibleCardCount).map((card) => (
-          <MoviesCard key={card.id || card.movieId} card={card} handleAddMovie={handleAddMovie} handleDeleteMovie={handleDeleteMovie} isSavedCards={isSavedCards} savedMovies={savedMovies}/>
+          <MoviesCard key={card.id || card.movieId} card={card} handleAddMovie={handleAddMovie} handleDeleteMovie={handleDeleteMovie} isSavedCards={isSavedCards}/>
         ))}
       </ul>
       {roundedVisibleCardCount < cards.length && (
