@@ -101,6 +101,28 @@
   opacity: 0.7;
 }
 
+.card__save-btn_active-delete {
+  display: block;
+  content: "";
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 21px;
+  height: 21px;
+  border: none;
+  background-image: url("../../images/delete-like.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 21px 21px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.card__save-btn_active-delete:hover {
+  display: block;
+  opacity: 0.7;
+}
+
 @media screen and (max-width: 889px) {
   .card__image {
     height: 190px;
@@ -134,5 +156,9 @@
 
   .card__name {
     font-size: 12px;
+  }
+
+  .card__save-btn {
+    display: block;
   }
 }

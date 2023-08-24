@@ -13,6 +13,7 @@ class Api {
   logout() {
     return fetch(this._adress + "/signout", {
       credentials: "include",
+      redirect:"follow"
     }).then((res) => {
       return this._checkResponseStatus(res);
     });

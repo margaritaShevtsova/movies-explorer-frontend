@@ -7,10 +7,10 @@ import AboutMe from "../AboutMe/AboutMe.js";
 import Portfolio from "../Portfolio/Portfolio.js";
 import Footer from "../Footer/Footer.js";
 
-function Main({isLoggedIn}) {
+function Main({isLoggedIn, activeItem}) {
   return (
     <>
-      <Header isLoggedIn={isLoggedIn}/>
+      <Header isLoggedIn={isLoggedIn} activeItem={activeItem}/>
       <main>
       <Promo/>
       <AboutProject/>

@@ -11,7 +11,6 @@ function Login({ handleLogin }) {
     handleChange,
     errors,
     isValid,
-    resetForm,
   } = useFormWithValidation();
 
   function handleSubmit(e) {

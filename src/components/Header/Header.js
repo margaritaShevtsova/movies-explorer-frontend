@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Navigation from "../Navigation/Navigation";
 
-function Header({ isLoggedIn }) {
+function Header({ isLoggedIn, activeItem }) {
   const [isNav, setIsNav] = useState(false);
   function handleBurgerClick() {
     setIsNav(true);
@@ -24,14 +24,22 @@ function Header({ isLoggedIn }) {
         <>
           <div className="header__wrapper">
             <Link
-              className="header__link header__link_type_movies"
+              className={`header__link ${
+                activeItem === "movies"
+                  ? "header__link_type_movies-active"
+                  : "header__link_type_movies"
+              }`}
               to="/movies"
               replace
             >
               Фильмы
             </Link>
             <Link
-              className="header__link header__link_type_saved-movies"
+              className={`header__link ${
+                activeItem === "saved-movies"
+                  ? "header__link_type_movies-active"
+                  : "header__link_type_movies"
+              }`}
               to="/saved-movies"
               replace
             >
@@ -51,7 +59,7 @@ function Header({ isLoggedIn }) {
             <span className="burger-line"></span>
           </button>
           {isNav && (
-            <Navigation handleClose={handleNavClose} activeItem="фильмы" />
+            <Navigation handleClose={handleNavClose} activeItem={activeItem} />
           )}
         </>
       ) : (

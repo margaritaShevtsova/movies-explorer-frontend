@@ -1,24 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./SearchForm.css";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
-import { useState } from "react";
+import { useFormWithValidation } from "../../hooks/useForm";
 
-function SearchForm({handleSearch, handleCheckboxChange, isChecked, searchValue}) {
+function SearchForm({
+  handleSearch,
+  handleCheckboxChange,
+  isChecked,
+  searchValue,
+}) {
+  const {
+    values,
+    setValues,
+    handleChange,
+    errors,
+    isValid,
+  } = useFormWithValidation();
 
-  const [formValue, setFormValue] = useState({search: searchValue});
+  const [isSearchValue, setIsSearchValue] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  useEffect(()=> {
+    setValues({search: searchValue});
+    if(searchValue) {
+      setIsSearchValue(true);
+    }
+  },[]);
 
-    setFormValue({
-      ...formValue,
-      [name]: value,
-    });
-  };
+  function handleInputChange(e) {
+    handleChange(e);
+    setIsSearchValue(false);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
-    handleSearch(formValue.search);
+    handleSearch(values.search);
   }
 
   return (
@@ -28,7 +43,7 @@ function SearchForm({handleSearch, handleCheckboxChange, isChecked, searchValue}
           <div className="search__wrapper">
             <input
               defaultValue={searchValue}
-              onChange={handleChange}
+              onChange={handleInputChange}
               className="search__input"
               name="search"
               type="text"
@@ -37,9 +52,19 @@ function SearchForm({handleSearch, handleCheckboxChange, isChecked, searchValue}
               maxLength="60"
               minLength="1"
             />
-            <button className="search__btn" type="submit"></button>
+            <span className="search__error">
+              {errors.search && "Нужно ввести ключевое слово"}
+            </span>
+            <button
+              className="search__btn"
+              type="submit"
+              disabled={!isValid && isSearchValue ? false : !isValid && !isSearchValue ? true : false}
+            ></button>
           </div>
-          <FilterCheckbox onHandleChange={handleCheckboxChange} isChecked={isChecked}/>
+          <FilterCheckbox
+            onHandleChange={handleCheckboxChange}
+            isChecked={isChecked}
+          />
         </form>
       </div>
     </section>

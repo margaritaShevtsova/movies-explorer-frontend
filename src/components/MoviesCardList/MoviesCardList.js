@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
@@ -11,7 +11,15 @@ const LG_INITIAL_CARD_COUNT = 12;
 const MD_INITIAL_CARD_COUNT = 8;
 const SM_INITIAL_CARD_COUNT = 5;
 
-function MoviesCardList({ cards, cardsSettings, isSubmitted, handleAddMovie, handleDeleteMovie, isSavedCards }) {
+function MoviesCardList({
+  cards,
+  cardsSettings,
+  isSubmitted,
+  handleAddMovie,
+  handleDeleteMovie,
+  isSavedCards,
+  successCardRequest,
+}) {
   const isDesktop = useMediaQuery("(min-width: 1260px)");
   const isTablet = useMediaQuery("(min-width: 768px)");
 
@@ -30,6 +38,11 @@ function MoviesCardList({ cards, cardsSettings, isSubmitted, handleAddMovie, han
   const [visibleCardCount, setVisibleCardCount] = React.useState(
     initialCardCount
   );
+
+
+  useEffect(() => {
+    setVisibleCardCount(initialCardCount);
+  }, [isSubmitted]);
 
   const roundedVisibleCardCount =
     Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount;
@@ -53,10 +66,23 @@ function MoviesCardList({ cards, cardsSettings, isSubmitted, handleAddMovie, han
   return (
     <section className="cards">
       <ul className="cards__list">
-        {(cards.length === 0 && isSubmitted) ? (<span className="cards__statement">Ничего не найдено</span>) 
-        : cards.length > 0 && cards.slice(0, roundedVisibleCardCount).map((card) => (
-          <MoviesCard key={card.id || card.movieId} card={card} handleAddMovie={handleAddMovie} handleDeleteMovie={handleDeleteMovie} isSavedCards={isSavedCards}/>
-        ))}
+        {cards.length === 0 && isSubmitted ? (
+          <span className="cards__statement">Ничего не найдено</span>
+        ) : (
+          cards.length > 0 &&
+          cards
+            .slice(0, roundedVisibleCardCount)
+            .map((card) => (
+              <MoviesCard
+                key={card.id || card.movieId}
+                card={card}
+                handleAddMovie={handleAddMovie}
+                handleDeleteMovie={handleDeleteMovie}
+                isSavedCards={isSavedCards}
+                successCardRequest={successCardRequest}
+              />
+            ))
+        )}
       </ul>
       {roundedVisibleCardCount < cards.length && (
         <button

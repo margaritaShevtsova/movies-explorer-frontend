@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Register.css";
 import logo from "../../images/logo_main-1.svg";
@@ -12,7 +12,6 @@ function Register({handleRegister}) {
     handleChange,
     errors,
     isValid,
-    resetForm,
   } = useFormWithValidation();
 
   function handleSubmit(e) {

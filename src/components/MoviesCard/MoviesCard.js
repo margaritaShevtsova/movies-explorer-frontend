@@ -48,7 +48,7 @@ function MoviesCard({
         }
       });
     }
-  },[card]);
+  }, [card, isSaved]);
 
   function handleClick() {
     if (!isSaved && !isSavedCards) {
@@ -64,11 +64,16 @@ function MoviesCard({
         movieId,
         nameRU,
         nameEN,
+      }).then(() => {
+          setIsSaved(true);
       });
-      setIsSaved(true);
     } else {
-      handleDeleteMovie(card);
-      setIsSaved(false);
+      handleDeleteMovie(card).then(() => {
+          setIsSaved(false);
+          if(card._id && !savedMovies) {
+            card._id = null;
+          }
+      });
     }
   }
 
@@ -92,7 +97,11 @@ function MoviesCard({
       </a>
       <button
         className={
-          !isSaved && !isSavedCards ? "card__save-btn" : "card__save-btn_active"
+          isSavedCards
+            ? "card__save-btn_active-delete"
+            : isSaved && !isSavedCards
+            ? "card__save-btn_active"
+            : "card__save-btn"
         }
         onClick={handleClick}
       >

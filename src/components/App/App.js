@@ -1,6 +1,9 @@
 import "./App.css";
 import React, { useEffect } from "react";
-import { CurrentUserContext, SavedMoviesContext } from "../../contexts/CurrentUserContext";
+import {
+  CurrentUserContext,
+  SavedMoviesContext,
+} from "../../contexts/CurrentUserContext";
 import { Routes, Route } from "react-router-dom";
 import Main from "../Main/Main.js";
 import Movies from "../Movies/Movies";
@@ -21,14 +24,21 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [savedCards, setSavedCards] = React.useState([]);
+  const [successCardRequest, setSuccessCardRequest] = React.useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getUserContent();
+    if (isLoggedIn) {
+      getUserContent().then(() => {
+        navigate("/movies", { replace: true });
+      });
+    }
   }, []);
 
   useEffect(() => {
-    getSavedMovies();
+    if(isLoggedIn) {
+      getSavedMovies();
+    }
   }, []);
 
   function getSavedMovies() {
@@ -44,10 +54,7 @@ function App() {
     return auth
       .register(password, email, name)
       .then(() => {
-        navigate("/signin", { replace: true });
-        getUserContent();
-        setIsSuccess(true);
-        setIsTooltipOpen(true);
+        handleLogin(password, email);
       })
       .catch(() => {
         setIsSuccess(false);
@@ -62,7 +69,10 @@ function App() {
       .then((res) => {
         setIsLoggedIn(true);
         navigate("/movies", { replace: true });
-        getUserContent();
+        getUserContent()
+        .then(() => {
+          getSavedMovies();
+        })
       })
       .catch(() => {
         setIsSuccess(false);
@@ -71,12 +81,11 @@ function App() {
   }
 
   function getUserContent() {
-    auth
+    return auth
       .getContent()
       .then((res) => {
         if (res) {
           setIsLoggedIn(true);
-          navigate("/", { replace: true });
           setCurrentUser(res);
         }
       })
@@ -99,7 +108,7 @@ function App() {
     nameRU,
     nameEN,
   }) {
-    api
+    return api
       .postMovie({
         country,
         director,
@@ -114,24 +123,34 @@ function App() {
         nameEN,
       })
       .then((res) => {
-        getSavedMovies();
+        console.log(res);
+        setSuccessCardRequest(true);
+        setSavedCards([...savedCards, res]);
+      })
+      .then(() => {
+        console.log(savedCards);
       })
       .catch((err) => {
+        setSuccessCardRequest(false);
         console.error(err);
       });
   }
 
   function handleDeleteMovie(card) {
-    api
+    return api
       .deleteMovie(card._id)
       .then(() => {
-        setSavedCards((state) => {
-          return state.filter((item) => {
+        setSuccessCardRequest(true);
+        setSavedCards(() => {
+          return savedCards.filter((item) => {
             return item._id !== card._id;
           });
         });
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        setSuccessCardRequest(false);
+        console.error(err);
+      });
   }
 
   function setUserInfo(name, email) {
@@ -139,6 +158,8 @@ function App() {
       .setUserInfo({ name: name, email: email })
       .then((res) => {
         setCurrentUser({ name: res.name, email: res.email });
+        setIsSuccess(true);
+        setIsTooltipOpen(true);
       })
       .catch((err) => {
         console.error(err);
@@ -161,71 +182,84 @@ function App() {
 
   const closeAllPopups = () => {
     setIsTooltipOpen(false);
-    setIsSuccess(false);
+    setTimeout(() => {
+      setIsSuccess(false);
+    }, 300);
   };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <SavedMoviesContext.Provider value={savedCards}>
-      <div className="page">
-        <Routes>
-          <Route path="/" element={<Main isLoggedIn={isLoggedIn} />} />
-          <Route
-            path="/movies"
-            element={
-              <ProtectedRouteElement
-                element={
-                  <Movies
-                    isLoggedIn={isLoggedIn}
-                    handleAddMovie={addSavedMovie}
-                    handleDeleteMovie={handleDeleteMovie}
-                    isSavedCards={false}
-                    savedCards={savedCards}
-                  />
-                }
-                isLoggedIn={isLoggedIn}
-              />
-            }
+        <div className="page">
+          <Routes>
+            <Route path="/" element={<Main isLoggedIn={isLoggedIn} activeItem="none"/>} />
+            <Route
+              path="/movies"
+              element={
+                <ProtectedRouteElement
+                  element={
+                    <Movies
+                      isLoggedIn={isLoggedIn}
+                      handleAddMovie={addSavedMovie}
+                      handleDeleteMovie={handleDeleteMovie}
+                      isSavedCards={false}
+                      savedCards={savedCards}
+                      successCardRequest={successCardRequest}
+                      activeItem="movies"
+                    />
+                  }
+                  isLoggedIn={isLoggedIn}
+                />
+              }
+            />
+            <Route
+              path="/saved-movies"
+              element={
+                <ProtectedRouteElement
+                  element={
+                    <SavedMovies
+                      isLoggedIn={isLoggedIn}
+                      isSavedCards={true}
+                      handleDeleteMovie={handleDeleteMovie}
+                      successCardRequest={successCardRequest}
+                      activeItem="saved-movies"
+                    />
+                  }
+                  isLoggedIn={isLoggedIn}
+                />
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRouteElement
+                  element={
+                    <Profile
+                      isLoggedIn={isLoggedIn}
+                      handleSetUserInfo={setUserInfo}
+                      handleLogout={handleLogout}
+                    />
+                  }
+                  isLoggedIn={isLoggedIn}
+                />
+              }
+            />
+            <Route
+              path="/signup"
+              element={<Register handleRegister={handleRegister} />}
+            />
+            <Route
+              path="/signin"
+              element={<Login handleLogin={handleLogin} />}
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <InfoTooltip
+            onClose={closeAllPopups}
+            isOpen={isTooltipOpen}
+            isSuccess={isSuccess}
           />
-          <Route
-            path="/saved-movies"
-            element={
-              <ProtectedRouteElement
-                element={
-                  <SavedMovies isLoggedIn={isLoggedIn} cards={savedCards} isSavedCards={true} handleDeleteMovie={handleDeleteMovie}/>
-                }
-                isLoggedIn={isLoggedIn}
-              />
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRouteElement
-                element={
-                  <Profile
-                    isLoggedIn={isLoggedIn}
-                    handleSetUserInfo={setUserInfo}
-                    handleLogout={handleLogout}
-                  />
-                }
-                isLoggedIn={isLoggedIn}
-              />
-            }
-          />
-          <Route
-            path="/signup"
-            element={<Register handleRegister={handleRegister} />}
-          />
-          <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <InfoTooltip
-          onClose={closeAllPopups}
-          isOpen={isTooltipOpen}
-          isSuccess={isSuccess}
-        />
-      </div>
+        </div>
       </SavedMoviesContext.Provider>
     </CurrentUserContext.Provider>
   );

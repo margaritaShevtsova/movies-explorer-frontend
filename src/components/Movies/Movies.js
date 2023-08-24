@@ -9,12 +9,14 @@ import { filter } from "../../utils/filter";
 import moviesApi from "../../utils/MoviesApi";
 
 function Movies({
+  activeItem,
   isLoggedIn,
   handleAddMovie,
   handleDeleteMovie,
   isSavedCards,
+  successCardRequest,
 }) {
-  const [isChecked, setIsChecked] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [cards, setCards] = React.useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
@@ -30,6 +32,30 @@ function Movies({
     }
   }, []);
 
+  useEffect(() =>{
+    if(cards.length > 0) {
+      setFilteredCards(filter(cards, searchValue, isChecked));
+      localStorage.setItem(
+        "searchSettings",
+        JSON.stringify({
+          cards: filter(cards, searchValue, isChecked),
+          searchValue: searchValue,
+          checked: isChecked,
+        })
+      );
+    } else if (filteredCards.length > 0) {
+      setFilteredCards(filter(filteredCards, searchValue, isChecked));
+      localStorage.setItem(
+        "searchSettings",
+        JSON.stringify({
+          cards: filter(cards, searchValue, isChecked),
+          searchValue: searchValue,
+          checked: isChecked,
+        })
+      );
+    }
+  },[isChecked])
+
   function getAllMovies() {
     return moviesApi
       .getMovies()
@@ -42,7 +68,6 @@ function Movies({
 
   function handleSearch(value) {
     if (cards.length === 0) {
-      console.log(cards.length);
       setIsSubmitted(false);
       setIsLoading(true);
       return getAllMovies()
@@ -80,7 +105,7 @@ function Movies({
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} />
+      <Header isLoggedIn={isLoggedIn} activeItem={activeItem}/>
       <main>
         <SearchForm
           handleSearch={handleSearch}
@@ -98,6 +123,7 @@ function Movies({
             handleAddMovie={handleAddMovie}
             handleDeleteMovie={handleDeleteMovie}
             isSavedCards={isSavedCards}
+            successCardRequest={successCardRequest}
           />
         )}
       </main>

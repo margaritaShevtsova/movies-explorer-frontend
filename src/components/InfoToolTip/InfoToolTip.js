@@ -33,11 +33,6 @@ export default function InfoTooltip({ onClose, isOpen, isSuccess }) {
           src={isSuccess ? successImage : faleImage}
           alt={isSuccess ? "Знак галочки" : "Знак крестика"}
         />
-        <p className="tooltip__descr">
-          {isSuccess
-            ? "Вы успешно зарегистрировались!"
-            : "Что-то пошло не так! Попробуйте ещё раз."}
-        </p>
             <button className="tooltip__close-btn" type="button" onClick={onClose} />
           </div>
         </div>

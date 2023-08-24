@@ -29,8 +29,12 @@ function Profile({ isLoggedIn, handleSetUserInfo, handleLogout }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    handleSetUserInfo(values.name, values.email);
-    setIsSaved(!isSaved);
+    if (!isSaved) {
+      setIsSaved(!isSaved);
+    } else {
+      handleSetUserInfo(values.name, values.email);
+      setIsSaved(!isSaved);
+    }
   }
   return (
     <>
@@ -79,12 +83,18 @@ function Profile({ isLoggedIn, handleSetUserInfo, handleLogout }) {
           <button
             className="profile__edit-btn"
             onClick={handleSubmit}
-            disabled={!isValid}
+            disabled={
+              !isValid ||
+              (isSaved && (currentUser.name === values.name ||
+                currentUser.email === values.email))
+            }
           >
             {!isSaved ? "Редактировать" : "Сохранить"}
           </button>
         </form>
-        <button className="profile__exit-btn" onClick={handleLogout}>Выйти из аккаунта</button>
+        <button className="profile__exit-btn" onClick={handleLogout}>
+          Выйти из аккаунта
+        </button>
       </div>
     </>
   );
