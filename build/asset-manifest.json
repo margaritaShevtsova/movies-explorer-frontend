@@ -1,7 +1,7 @@
 {
   "main.css": "/static/css/main.071d1039.chunk.css",
-  "main.js": "/static/js/main.7b4a9650.chunk.js",
-  "main.js.map": "/static/js/main.7b4a9650.chunk.js.map",
+  "main.js": "/static/js/main.edb8d993.chunk.js",
+  "main.js.map": "/static/js/main.edb8d993.chunk.js.map",
   "static/js/1.ed3baa09.chunk.js": "/static/js/1.ed3baa09.chunk.js",
   "static/js/1.ed3baa09.chunk.js.map": "/static/js/1.ed3baa09.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
@@ -11,12 +11,12 @@
   "static/media/student.png": "/static/media/student.1ec56c8d.png",
   "static/media/Success.svg": "/static/media/Success.e38b395c.svg",
   "static/media/Fale.svg": "/static/media/Fale.4072126c.svg",
-  "static/media/index.css": "/static/media/Inter-Black.661569af.woff2",
+  "static/media/index.css": "/static/media/Inter-Black.d0b121f3.woff",
   "static/media/InfoToolTip.css": "/static/media/close-btn.66af4974.svg",
   "static/media/SearchForm.css": "/static/media/button.3166ed04.svg",
-  "static/media/MoviesCard.css": "/static/media/save-btn.d055a67b.svg",
+  "static/media/MoviesCard.css": "/static/media/delete-like.3fc92534.svg",
   "static/css/main.071d1039.chunk.css.map": "/static/css/main.071d1039.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.a85aeee385315bbfd5a1df48a1c07e0b.js": "/precache-manifest.a85aeee385315bbfd5a1df48a1c07e0b.js",
+  "precache-manifest.0967fc2958c6d1f6b68de04f971958cb.js": "/precache-manifest.0967fc2958c6d1f6b68de04f971958cb.js",
   "service-worker.js": "/service-worker.js"
 }
