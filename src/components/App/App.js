@@ -30,11 +30,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-      checkToken(token)
-        .then(() => {
-          navigate("/movies", { replace: true });
-        })
-        .catch((err) => console.error(err));
+    checkToken(token);
   }, []);
 
   useEffect(() => {
