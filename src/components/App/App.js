@@ -18,6 +18,8 @@ import * as auth from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
 import ProtectedRouteElement from "../ProtectedRoute/ProtectedRoute";
 
+const token = localStorage.getItem("jwt") || "";
+
 function App() {
   const [isTooltipOpen, setIsTooltipOpen] = React.useState(false);
   const [isSuccess, setIsSuccess] = React.useState(false);
@@ -28,15 +30,15 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isLoggedIn) {
-      getUserContent().then(() => {
-        navigate("/movies", { replace: true });
-      });
-    }
+      checkToken(token)
+        .then(() => {
+          navigate("/movies", { replace: true });
+        })
+        .catch((err) => console.error(err));
   }, []);
 
   useEffect(() => {
-    if(isLoggedIn) {
+    if (isLoggedIn) {
       getSavedMovies();
     }
   }, []);
@@ -69,10 +71,9 @@ function App() {
       .then((res) => {
         setIsLoggedIn(true);
         navigate("/movies", { replace: true });
-        getUserContent()
-        .then(() => {
+        checkToken().then(() => {
           getSavedMovies();
-        })
+        });
       })
       .catch(() => {
         setIsSuccess(false);
@@ -80,19 +81,23 @@ function App() {
       });
   }
 
-  function getUserContent() {
-    return auth
-      .getContent()
-      .then((res) => {
-        if (res) {
-          setIsLoggedIn(true);
-          setCurrentUser(res);
-        }
-      })
-      .catch((err) => {
-        setIsLoggedIn(false);
-        console.error(err);
-      });
+  function checkToken() {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      auth
+        .getContent(jwt)
+        .then((res) => {
+          if (res) {
+            setIsLoggedIn(true);
+            setCurrentUser(res);
+            navigate("/movies", { replace: true });
+          }
+        })
+        .catch((err) => {
+          setIsLoggedIn(false);
+          console.log(err);
+        });
+    }
   }
 
   function addSavedMovie({
@@ -167,17 +172,10 @@ function App() {
   }
 
   function handleLogout() {
-    api
-      .logout()
-      .then(() => {
-        setIsLoggedIn(false);
-        localStorage.clear();
-        navigate("/", { replace: true });
-        console.log("Вы успешно вышли из аккаунта");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    setIsLoggedIn(false);
+    localStorage.clear();
+    navigate("/", { replace: true });
+    console.log("Вы успешно вышли из аккаунта");
   }
 
   const closeAllPopups = () => {
@@ -192,7 +190,10 @@ function App() {
       <SavedMoviesContext.Provider value={savedCards}>
         <div className="page">
           <Routes>
-            <Route path="/" element={<Main isLoggedIn={isLoggedIn} activeItem="none"/>} />
+            <Route
+              path="/"
+              element={<Main isLoggedIn={isLoggedIn} activeItem="none" />}
+            />
             <Route
               path="/movies"
               element={

@@ -1,6 +1,7 @@
 class Api {
-  constructor({ adress }) {
+  constructor({ adress, token }) {
     this._adress = adress;
+    this._token = token;
   }
 
   _checkResponseStatus(res) {
@@ -10,18 +11,20 @@ class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  logout() {
-    return fetch(this._adress + "/signout", {
-      credentials: "include",
-      redirect:"follow"
-    }).then((res) => {
-      return this._checkResponseStatus(res);
-    });
-  }
+  // logout() {
+  //   return fetch(this._adress + "/signout", {
+  //     credentials: "include",
+  //     redirect:"follow"
+  //   }).then((res) => {
+  //     return this._checkResponseStatus(res);
+  //   });
+  // }
 
   getUserInfo() {
     return fetch(this._adress + "/users/me", {
-      credentials: 'include',
+      headers: {
+        authorization: this._token,
+      },
     }).then((res) => {
       return this._checkResponseStatus(res);
     });
@@ -31,6 +34,7 @@ class Api {
     return fetch(this._adress + "/users/me", {
       method: "PATCH",
       headers: {
+        authorization: this._token,
         "Content-Type": "application/json",
       },
       credentials: "include",
@@ -45,7 +49,9 @@ class Api {
 
   getSavedMovies() {
     return fetch(this._adress + "/movies", {
-      credentials: "include",
+      headers: {
+        authorization: this._token,
+      },
     }).then((res) => {
       return this._checkResponseStatus(res);
     });
@@ -67,6 +73,7 @@ class Api {
     return fetch(this._adress + "/movies", {
       method: "POST",
       headers: {
+        authorization: this._token,
         "Content-Type": "application/json",
       },
       credentials: "include",
@@ -91,15 +98,20 @@ class Api {
   deleteMovie(cardId) {
     return fetch(this._adress + "/movies/" + cardId, {
       method: "DELETE",
-      credentials: "include",
+      headers: {
+        authorization: this._token,
+      },
     }).then((res) => {
       return this._checkResponseStatus(res);
     });
   }
 }
 
+const token = localStorage.getItem("jwt") || "";
+
 const api = new Api({
   adress: "https://shevtsova.movies.nomoreparties.sbs/api",
+  token: token
 });
 
 export default api;
