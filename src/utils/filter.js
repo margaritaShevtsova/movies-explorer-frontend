@@ -1,3 +1,5 @@
+import { shortFilmDuration } from "../constants/constants";
+
 function filterByName(cards, value) {
   const filteredCards = cards.filter((card) => {
     return (
@@ -12,7 +14,7 @@ function filterByName(cards, value) {
 function filterByDuration(cards, isChecked) {
   const filteredCards = cards.filter((card) => {
     if(isChecked) {
-      return card.duration <=40
+      return card.duration <= shortFilmDuration
     } else {
       return card;
     }
@@ -22,8 +24,6 @@ function filterByDuration(cards, isChecked) {
 }
 
 export function filter(cards, value, isChecked) {
-  console.log(cards);
   let filteredCards = filterByDuration(cards, isChecked);
-  console.log(filteredCards);
   return filterByName(filteredCards, value);
 }

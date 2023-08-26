@@ -13,7 +13,6 @@ export const register = (password, email, name) => {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include",
     body: JSON.stringify({ password, email, name }),
   }).then((res) => {
     return _checkResponseStatus(res);
@@ -26,10 +25,10 @@ export const authorize = (password, email) => {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include",
     body: JSON.stringify({ password, email }),
   }).then((res) => {
-    return _checkResponseStatus(res).then(() => {
+    return _checkResponseStatus(res).then((res) => {
+      console.log(res);
       localStorage.setItem("jwt", res.token);
     });
   });
@@ -42,7 +41,6 @@ export const getContent = (token) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    credentials: "include",
   }).then((res) => {
     return _checkResponseStatus(res);
   });

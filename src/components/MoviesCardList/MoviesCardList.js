@@ -2,14 +2,16 @@ import React, { useEffect } from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
-
-const LG_ROW_CARD_COUNT = 3;
-const MD_ROW_CARD_COUNT = 2;
-const SM_ROW_CARD_COUNT = 2;
-
-const LG_INITIAL_CARD_COUNT = 12;
-const MD_INITIAL_CARD_COUNT = 8;
-const SM_INITIAL_CARD_COUNT = 5;
+import {
+  isDesktopPoint,
+  isTabletPoint,
+  LG_ROW_CARD_COUNT,
+  MD_ROW_CARD_COUNT,
+  SM_ROW_CARD_COUNT,
+  LG_INITIAL_CARD_COUNT,
+  MD_INITIAL_CARD_COUNT,
+  SM_INITIAL_CARD_COUNT,
+} from "../../constants/constants";
 
 function MoviesCardList({
   cards,
@@ -19,10 +21,10 @@ function MoviesCardList({
   handleDeleteMovie,
   isSavedCards,
   successCardRequest,
+  isOnSearch,
 }) {
-  const isDesktop = useMediaQuery("(min-width: 1260px)");
-  const isTablet = useMediaQuery("(min-width: 768px)");
-
+  const isDesktop = useMediaQuery(isDesktopPoint);
+  const isTablet = useMediaQuery(isTabletPoint);
   const cardColumnCount = isDesktop
     ? LG_ROW_CARD_COUNT
     : isTablet
@@ -38,7 +40,6 @@ function MoviesCardList({
   const [visibleCardCount, setVisibleCardCount] = React.useState(
     initialCardCount
   );
-
 
   useEffect(() => {
     setVisibleCardCount(initialCardCount);
@@ -66,7 +67,7 @@ function MoviesCardList({
   return (
     <section className="cards">
       <ul className="cards__list">
-        {cards.length === 0 && isSubmitted ? (
+        {cards.length === 0 && isSubmitted && isOnSearch ? (
           <span className="cards__statement">Ничего не найдено</span>
         ) : (
           cards.length > 0 &&

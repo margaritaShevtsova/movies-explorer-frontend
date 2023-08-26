@@ -6,8 +6,11 @@ import { useFormWithValidation } from "../../hooks/useForm";
 function SearchForm({
   handleSearch,
   handleCheckboxChange,
+  handleCheckboxChangeSaved,
   isChecked,
   searchValue,
+  isLoading,
+  cardsSettings,
 }) {
   const {
     values,
@@ -36,6 +39,10 @@ function SearchForm({
     handleSearch(values.search);
   }
 
+  function handleCheckboxClick () {
+    handleCheckboxChangeSaved(values.search);
+  }
+
   return (
     <section className="search">
       <div className="search__container">
@@ -58,11 +65,11 @@ function SearchForm({
             <button
               className="search__btn"
               type="submit"
-              disabled={!isValid && isSearchValue ? false : !isValid && !isSearchValue ? true : false}
+              disabled={(!isValid && isSearchValue) ? false : (!isValid && !isSearchValue) || isLoading ? true : false}
             ></button>
           </div>
           <FilterCheckbox
-            onHandleChange={handleCheckboxChange}
+            onHandleChange={cardsSettings === "savedCards" ? handleCheckboxClick : handleCheckboxChange}
             isChecked={isChecked}
           />
         </form>

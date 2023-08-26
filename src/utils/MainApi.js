@@ -1,7 +1,7 @@
 class Api {
   constructor({ adress, token }) {
     this._adress = adress;
-    this._token = token;
+    this._token = `Bearer ${token}`;
   }
 
   _checkResponseStatus(res) {
@@ -10,15 +10,6 @@ class Api {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   }
-
-  // logout() {
-  //   return fetch(this._adress + "/signout", {
-  //     credentials: "include",
-  //     redirect:"follow"
-  //   }).then((res) => {
-  //     return this._checkResponseStatus(res);
-  //   });
-  // }
 
   getUserInfo() {
     return fetch(this._adress + "/users/me", {
@@ -37,7 +28,6 @@ class Api {
         authorization: this._token,
         "Content-Type": "application/json",
       },
-      credentials: "include",
       body: JSON.stringify({
         name: name,
         email: email,
@@ -47,10 +37,10 @@ class Api {
     });
   }
 
-  getSavedMovies() {
+  getSavedMovies(jwt) {
     return fetch(this._adress + "/movies", {
       headers: {
-        authorization: this._token,
+        authorization: `Bearer ${jwt}`,
       },
     }).then((res) => {
       return this._checkResponseStatus(res);
@@ -76,7 +66,6 @@ class Api {
         authorization: this._token,
         "Content-Type": "application/json",
       },
-      credentials: "include",
       body: JSON.stringify({
         country,
         director,
@@ -107,11 +96,5 @@ class Api {
   }
 }
 
-const token = localStorage.getItem("jwt") || "";
 
-const api = new Api({
-  adress: "https://shevtsova.movies.nomoreparties.sbs/api",
-  token: token
-});
-
-export default api;
+export default Api;

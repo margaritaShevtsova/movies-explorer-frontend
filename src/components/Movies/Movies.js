@@ -22,6 +22,7 @@ function Movies({
   const [filteredCards, setFilteredCards] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isOnSearch, setIsOnSearch] = useState(false);
 
   useEffect(() => {
     const searchSettings = JSON.parse(localStorage.getItem("searchSettings"));
@@ -67,6 +68,7 @@ function Movies({
   }
 
   function handleSearch(value) {
+    setIsSubmitted(false);
     if (cards.length === 0) {
       setIsSubmitted(false);
       setIsLoading(true);
@@ -81,10 +83,12 @@ function Movies({
               checked: isChecked,
             })
           );
+          setSearchValue(value);
         })
         .finally(() => {
           setIsLoading(false);
           setIsSubmitted(true);
+          setIsOnSearch(true);
         });
     } else {
       setFilteredCards(filter(cards, value, isChecked));
@@ -96,6 +100,7 @@ function Movies({
           checked: isChecked,
         })
       );
+      setSearchValue(value);
     }
   }
 
@@ -112,6 +117,7 @@ function Movies({
           isChecked={isChecked}
           handleCheckboxChange={handleCheckboxChange}
           searchValue={searchValue}
+          isLoading={isLoading}
         />
         {isLoading ? (
           <Preloader />
@@ -124,6 +130,7 @@ function Movies({
             handleDeleteMovie={handleDeleteMovie}
             isSavedCards={isSavedCards}
             successCardRequest={successCardRequest}
+            isOnSearch={isOnSearch}
           />
         )}
       </main>

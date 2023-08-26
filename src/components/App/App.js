@@ -13,12 +13,10 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFound from "../NotFound/NotFound";
 import InfoTooltip from "../InfoToolTip/InfoToolTip";
-import api from "../../utils/MainApi";
+import Api from "../../utils/MainApi";
 import * as auth from "../../utils/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import ProtectedRouteElement from "../ProtectedRoute/ProtectedRoute";
-
-const token = localStorage.getItem("jwt") || "";
 
 function App() {
   const [isTooltipOpen, setIsTooltipOpen] = React.useState(false);
@@ -29,19 +27,27 @@ function App() {
   const [successCardRequest, setSuccessCardRequest] = React.useState(false);
   const navigate = useNavigate();
 
+  let token = localStorage.getItem("jwt") || "";
+  const api = new Api({
+    adress: "https://shevtsova.movies.nomoreparties.sbs/api",
+    token: token
+  });
+
+  let windowPath = window.location.pathname;
+
   useEffect(() => {
     checkToken(token);
   }, []);
 
   useEffect(() => {
     if (isLoggedIn) {
-      getSavedMovies();
+      getSavedMovies(token);
     }
-  }, []);
+  }, [isLoggedIn]);
 
-  function getSavedMovies() {
-    api
-      .getSavedMovies()
+  function getSavedMovies(token) {
+    return api
+      .getSavedMovies(token)
       .then((res) => {
         setSavedCards(res);
       })
@@ -67,26 +73,24 @@ function App() {
       .then((res) => {
         setIsLoggedIn(true);
         navigate("/movies", { replace: true });
-        checkToken().then(() => {
-          getSavedMovies();
-        });
+        checkToken();
       })
-      .catch(() => {
-        setIsSuccess(false);
-        setIsTooltipOpen(true);
+      .catch((err) => {
+        console.log(err);
       });
   }
 
   function checkToken() {
     const jwt = localStorage.getItem("jwt");
+    token = jwt;
     if (jwt) {
-      auth
+      return auth
         .getContent(jwt)
         .then((res) => {
           if (res) {
             setIsLoggedIn(true);
+            navigate(`${windowPath}`, {replace: true});
             setCurrentUser(res);
-            navigate("/movies", { replace: true });
           }
         })
         .catch((err) => {
@@ -243,13 +247,13 @@ function App() {
             />
             <Route
               path="/signup"
-              element={<Register handleRegister={handleRegister} />}
+              element={isLoggedIn ? <Navigate to="/" replace /> : <Register handleRegister={handleRegister} />}
             />
             <Route
               path="/signin"
-              element={<Login handleLogin={handleLogin} />}
+              element={isLoggedIn ? <Navigate to="/" replace /> : <Login handleLogin={handleLogin} />}
             />
-            <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<NotFound />} isLoggedIn={isLoggedIn} />
           </Routes>
           <InfoTooltip
             onClose={closeAllPopups}

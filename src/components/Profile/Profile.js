@@ -85,7 +85,7 @@ function Profile({ isLoggedIn, handleSetUserInfo, handleLogout }) {
             onClick={handleSubmit}
             disabled={
               !isValid ||
-              (isSaved && (currentUser.name === values.name ||
+              (isSaved && (currentUser.name === values.name &&
                 currentUser.email === values.email))
             }
           >

@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "f151d3a3c41958f047e3",
+    "revision": "aa9416b651256f52e99b",
     "url": "/static/css/main.071d1039.chunk.css"
   },
   {
-    "revision": "f151d3a3c41958f047e3",
-    "url": "/static/js/main.f151d3a3.chunk.js"
+    "revision": "aa9416b651256f52e99b",
+    "url": "/static/js/main.aa9416b6.chunk.js"
   },
   {
     "revision": "ed3baa098089e347dac0",
@@ -36,10 +36,6 @@ self.__precacheManifest = [
     "url": "/static/media/Fale.4072126c.svg"
   },
   {
-    "revision": "3ac83020fe53b617b79b5e2ad66764af",
-    "url": "/static/media/Inter-Regular.3ac83020.woff"
-  },
-  {
     "revision": "dc131113894217b5031000575d9de002",
     "url": "/static/media/Inter-Regular.dc131113.woff2"
   },
@@ -56,6 +52,10 @@ self.__precacheManifest = [
     "url": "/static/media/Inter-Black.661569af.woff2"
   },
   {
+    "revision": "3ac83020fe53b617b79b5e2ad66764af",
+    "url": "/static/media/Inter-Regular.3ac83020.woff"
+  },
+  {
     "revision": "d0b121f3a9d3d88afdfd6902d31ee9a0",
     "url": "/static/media/Inter-Black.d0b121f3.woff"
   },
@@ -68,15 +68,15 @@ self.__precacheManifest = [
     "url": "/static/media/button.3166ed04.svg"
   },
   {
-    "revision": "3fc925340f34b850913dc563ab464e10",
-    "url": "/static/media/delete-like.3fc92534.svg"
-  },
-  {
     "revision": "d055a67b4af74360d394caf32dc6b9ef",
     "url": "/static/media/save-btn.d055a67b.svg"
   },
   {
-    "revision": "81ec0f48ef90144778ca2b38cec148b5",
+    "revision": "3fc925340f34b850913dc563ab464e10",
+    "url": "/static/media/delete-like.3fc92534.svg"
+  },
+  {
+    "revision": "fbb366a3ccf9010d5af42cbe85f3e4ed",
     "url": "/index.html"
   }
 ];
