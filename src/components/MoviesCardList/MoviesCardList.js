@@ -1,54 +1,99 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import image1 from "../../images/pic1.jpg";
-import image2 from "../../images/pic2.jpg";
-import image3 from "../../images/pic3.jpg";
-import image4 from "../../images/pic4.jpg";
-import image5 from "../../images/pic5.jpg";
-import image6 from "../../images/pic6.jpg";
-import image7 from "../../images/pic7.jpg";
-import image8 from "../../images/pic8.jpg";
-import image9 from "../../images/pic9.jpg";
-import image10 from "../../images/pic10.jpg";
-import image11 from "../../images/pic11.jpg";
-import image12 from "../../images/pic12.jpg";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
+import {
+  isDesktopPoint,
+  isTabletPoint,
+  LG_ROW_CARD_COUNT,
+  MD_ROW_CARD_COUNT,
+  SM_ROW_CARD_COUNT,
+  LG_INITIAL_CARD_COUNT,
+  MD_INITIAL_CARD_COUNT,
+  SM_INITIAL_CARD_COUNT,
+} from "../../constants/constants";
 
-const cards = [
-    { id: 1, src: image1, name: "33 слова о дизайне" },
-    { id: 2, src: image2, name: "Киноальманах «100 лет дизайна»" },
-    { id: 3, src: image3, name: "В погоне за Бенкси" },
-    { id: 4, src: image4, name: "Баския: Взрыв реальности" },
-    { id: 5, src: image5, name: "Бег это свобода" },
-    { id: 6, src: image6, name: "Книготорговцы" },
-    { id: 7, src: image7, name: "Когда я думаю о Германии ночью" },
-    { id: 8, src: image8, name: "Gimme Danger: История Игги и The Stooges" },
-    { id: 9, src: image9, name: "Дженис: Маленькая девочка грустит" },
-    { id: 10, src: image10, name: "Соберись перед прыжком" },
-    { id: 11, src: image11, name: "Пи Джей Харви: A dog called money" },
-    { id: 12, src: image12, name: "По волнам: Искусство звука в кино" },
-  ];
+function MoviesCardList({
+  cards,
+  cardsSettings,
+  isSubmitted,
+  handleAddMovie,
+  handleDeleteMovie,
+  isSavedCards,
+  successCardRequest,
+  isOnSearch,
+}) {
+  const isDesktop = useMediaQuery(isDesktopPoint);
+  const isTablet = useMediaQuery(isTabletPoint);
+  const cardColumnCount = isDesktop
+    ? LG_ROW_CARD_COUNT
+    : isTablet
+    ? MD_ROW_CARD_COUNT
+    : SM_ROW_CARD_COUNT;
 
-  const savedCards =[
-    { id: 1, src: image1, name: "33 слова о дизайне" },
-    { id: 2, src: image2, name: "Киноальманах «100 лет дизайна»" },
-    { id: 3, src: image3, name: "В погоне за Бенкси" },
-  ]
+  const initialCardCount = isDesktop
+    ? LG_INITIAL_CARD_COUNT
+    : isTablet
+    ? MD_INITIAL_CARD_COUNT
+    : SM_INITIAL_CARD_COUNT;
 
-function MoviesCardList({cardsSettings}) {
+  const [visibleCardCount, setVisibleCardCount] = React.useState(
+    initialCardCount
+  );
 
-  function renderCardList(arr) {
-    return arr.map((card) => {
-      return (<MoviesCard key={card.id} card={card} />);
-    })
-  }
-  
+  useEffect(() => {
+    setVisibleCardCount(initialCardCount);
+  }, [isSubmitted]);
+
+  const roundedVisibleCardCount =
+    Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount;
+
+  const handleClick = () => {
+    calculateCardCount();
+  };
+
+  const calculateCardCount = () => {
+    if (isDesktop) {
+      return setVisibleCardCount(visibleCardCount + LG_ROW_CARD_COUNT);
+    }
+
+    if (isTablet) {
+      return setVisibleCardCount(visibleCardCount + MD_ROW_CARD_COUNT);
+    }
+
+    setVisibleCardCount(visibleCardCount + SM_ROW_CARD_COUNT);
+  };
+
   return (
     <section className="cards">
       <ul className="cards__list">
-        {cardsSettings === "allCards" ? renderCardList(cards) : renderCardList(savedCards)}
+        {cards.length === 0 && isSubmitted && isOnSearch ? (
+          <span className="cards__statement">Ничего не найдено</span>
+        ) : (
+          cards.length > 0 &&
+          cards
+            .slice(0, roundedVisibleCardCount)
+            .map((card) => (
+              <MoviesCard
+                key={card.id || card.movieId}
+                card={card}
+                handleAddMovie={handleAddMovie}
+                handleDeleteMovie={handleDeleteMovie}
+                isSavedCards={isSavedCards}
+                successCardRequest={successCardRequest}
+              />
+            ))
+        )}
       </ul>
-      <button className={`cards__btn ${cardsSettings !== "allCards" && "cards__btn_visibility_hidden"}`}>Ещё</button>
+      {roundedVisibleCardCount < cards.length && (
+        <button
+          className={`cards__btn ${cardsSettings !== "allCards" &&
+            "cards__btn_visibility_hidden"}`}
+          onClick={handleClick}
+        >
+          Ещё
+        </button>
+      )}
     </section>
   );
 }

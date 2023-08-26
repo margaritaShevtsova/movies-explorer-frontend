@@ -16,13 +16,13 @@ function Navigation({handleClose, activeItem}) {
         <nav className={`nav ${isTransition && "nav_active"}`}>
             <ul className="nav__list">
             <li className="nav__item">
-            <NavLink className="nav__link" to="/">Главная</NavLink>
+            <NavLink className={`nav__link ${activeItem === "none" && "nav__link_active"}`} to="/">Главная</NavLink>
             </li>
             <li className="nav__item">
-            <NavLink className={`nav__link ${activeItem === "фильмы" && "nav__link_active"}`} to="/movies">Фильмы</NavLink>
+            <NavLink className={`nav__link ${activeItem === "movies" && "nav__link_active"}`} to="/movies">Фильмы</NavLink>
             </li>
             <li className="nav__item">
-            <NavLink className={`nav__link ${activeItem === "сохрФильмы" && "nav__link_active"}`} to="/saved-movies">Сохранённые фильмы</NavLink>
+            <NavLink className={`nav__link ${activeItem === "saved-movies" && "nav__link_active"}`} to="/saved-movies">Сохранённые фильмы</NavLink>
             </li>
         </ul>
         <Link className="nav__link_type_profile" to="/profile">Аккаунт</Link>

@@ -15,6 +15,11 @@
   list-style: none;
 }
 
+.cards__statement {
+  font-family: Inter;
+  font-size: 22px;
+}
+
 .cards__btn {
   border: 1px solid #424242;
   min-width: 320px;
@@ -39,7 +44,7 @@
   visibility: hidden;
 }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1260px) {
   .cards__list {
     grid-template-columns: repeat(2, 339px);
     gap: 39px 30px;
