@@ -128,12 +128,8 @@ function App() {
         nameEN,
       })
       .then((res) => {
-        console.log(res);
         setSuccessCardRequest(true);
         setSavedCards([...savedCards, res]);
-      })
-      .then(() => {
-        console.log(savedCards);
       })
       .catch((err) => {
         setSuccessCardRequest(false);

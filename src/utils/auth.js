@@ -28,7 +28,6 @@ export const authorize = (password, email) => {
     body: JSON.stringify({ password, email }),
   }).then((res) => {
     return _checkResponseStatus(res).then((res) => {
-      console.log(res);
       localStorage.setItem("jwt", res.token);
     });
   });
